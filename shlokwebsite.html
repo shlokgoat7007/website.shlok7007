@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Form</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        form {
+            background: white;
+            padding: 25px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .toggle {
+            position: absolute;
+            right: 10px;
+            top: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #667eea;
+        }
+
+        #strength {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .checkbox {
+            margin-top: 15px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5563c1;
+        }
+    </style>
+</head>
+<body>
+
+<form>
+    <h2>User Details</h2>
+
+    <label>Username</label>
+    <input type="text" placeholder="Enter username" required>
+
+    <label>Password</label>
+    <div class="password-box">
+        <input type="password" id="password" placeholder="Enter password" required onkeyup="checkStrength()">
+        <span class="toggle" onclick="togglePassword()">Show</span>
+    </div>
+    <div id="strength"></div>
+
+    <label>Date of Birth</label>
+    <input type="date" required>
+
+    <div class="checkbox">
+        <input type="checkbox" required> I agree to the terms
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function togglePassword() {
+        const pwd = document.getElementById("password");
+        const toggle = document.querySelector(".toggle");
+        if (pwd.type === "password") {
+            pwd.type = "text";
+            toggle.textContent = "Hide";
+        } else {
+            pwd.type = "password";
+            toggle.textContent = "Show";
+        }
+    }
+
+    function checkStrength() {
+        const pwd = document.getElementById("password").value;
+        const strength = document.getElementById("strength");
+
+        if (pwd.length < 6) {
+            strength.textContent = "Weak password";
+            strength.style.color = "red";
+        } else if (pwd.match(/[A-Z]/) && pwd.match(/[0-9]/)) {
+            strength.textContent = "Strong password";
+            strength.style.color = "green";
+        } else {
+            strength.textContent = "Medium password";
+            strength.style.color = "orange";
+        }
+    }
+</script>
+
+</body>
+</html>
